@@ -1,0 +1,15 @@
+{
+  "name": "下一步 · 一次只做一件事",
+  "short_name": "下一步",
+  "description": "低压力的任务助手，一次只面对一件事。",
+  "lang": "zh-CN",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F8F7F2",
+  "theme_color": "#F8F7F2",
+  "icons": [
+    {"src":"./icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"./icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}

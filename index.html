@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F8F7F2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="下一步">
+  <meta name="description" content="一次只面对一件事。">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <link rel="icon" href="./icon-192.png" type="image/png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>下一步</title>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true">◒</span><span>下一步</span></div><button class="text-button" id="openTasks" type="button">所有任务 <span aria-hidden="true">↗</span></button></header>
+    <main>
+      <section class="home-view" id="homeView" aria-label="当前推荐">
+        <div class="welcome"><div class="eyebrow">ONE THING AT A TIME</div><h1>现在，只做一件事。</h1><p>其他的，先交给这里保管。</p></div>
+        <div class="landscape" aria-hidden="true"><div class="sun"></div><div class="hill hill-back"></div><div class="hill hill-front"></div><div class="tiny-leaf leaf-one"></div><div class="tiny-leaf leaf-two"></div></div>
+        <div id="homeContent" aria-live="polite"></div>
+        <div class="home-footer"><button class="subtle-link" id="openCheckin" type="button">调整当前状态 <span aria-hidden="true">↗</span></button><button class="subtle-link" id="openAdd" type="button">＋ 记下一件事</button></div>
+      </section>
+      <section class="list-view hidden" id="listView" aria-label="所有任务"><div class="section-head"><button class="back-button" id="backHome" type="button">← 返回</button><h1>放在这里，就不用一直想着。</h1><p>不必今天全部完成。</p></div><div class="list-actions"><button class="primary small" id="addFromList" type="button">＋ 添加任务</button><button class="outline small" id="exportData" type="button">备份</button><button class="outline small" id="importData" type="button">恢复</button><input id="importFile" type="file" accept="application/json,.json" hidden></div><div id="taskList"></div><p class="storage-note">仅保存在当前浏览器的本地存储中。清除网站数据可能导致任务丢失，请偶尔备份。</p></section>
+    </main>
+    <footer class="bottom-note">不用完成所有事。先做眼前这一件。</footer>
+  </div>
+  <dialog id="taskDialog" class="sheet"><form id="taskForm" novalidate><div class="sheet-header"><h2 id="taskDialogTitle">记下一件事</h2><button class="close-button" type="button" data-close="taskDialog" aria-label="关闭">×</button></div><label class="field"><span>是什么事？</span><input id="taskTitle" maxlength="100" placeholder="例如：整理一份资料" required autocomplete="off"></label><div class="field"><span class="field-label">什么时候需要处理？</span><div class="choice-grid" id="urgencyChoices"><label><input type="radio" name="urgency" value="whenever"><span>不着急</span></label><label><input type="radio" name="urgency" value="soon" checked><span>最近处理</span></label><label><input type="radio" name="urgency" value="remember"><span>必须记得</span></label><label><input type="radio" name="urgency" value="deadline"><span>有截止日期</span></label></div></div><label class="field hidden" id="deadlineField"><span>截止日期</span><input id="taskDeadline" type="date"></label><div class="field"><span class="field-label">任务类型</span><div class="choice-grid two"><label><input type="radio" name="taskType" value="once" checked><span>一次性</span></label><label><input type="radio" name="taskType" value="repeat"><span>循环任务</span></label></div></div><label class="field hidden" id="repeatField"><span>多久重复一次？</span><select id="taskRepeat"><option value="daily">每天</option><option value="weekly">每周</option><option value="monthly">每月</option><option value="after3">完成后隔 3 天</option></select></label><div class="field-row"><label class="field"><span>需要的精力</span><select id="taskEnergy"><option value="low">低</option><option value="medium" selected>一般</option><option value="high">较高</option></select></label><label class="field"><span>大概需要</span><select id="taskDuration"><option value="10">10 分钟</option><option value="30" selected>半小时</option><option value="60">一小时左右</option></select></label></div><div class="sheet-actions"><button type="button" class="outline" data-close="taskDialog">取消</button><button type="submit" class="primary" id="saveTask">保存任务</button></div></form></dialog>
+  <dialog id="checkinDialog" class="sheet"><div class="sheet-header"><h2>我现在的状态</h2><button class="close-button" type="button" data-close="checkinDialog" aria-label="关闭">×</button></div><p class="sheet-hint">只用来挑选更容易开始的事。</p><div class="field"><span class="field-label">现在的精力</span><div class="choice-grid three" id="energyChoices"><label><input type="radio" name="currentEnergy" value="low"><span>有点累</span></label><label><input type="radio" name="currentEnergy" value="medium"><span>一般</span></label><label><input type="radio" name="currentEnergy" value="high"><span>状态不错</span></label></div></div><div class="field"><span class="field-label">有多少时间</span><div class="choice-grid three" id="durationChoices"><label><input type="radio" name="currentDuration" value="10"><span>10 分钟</span></label><label><input type="radio" name="currentDuration" value="30"><span>半小时</span></label><label><input type="radio" name="currentDuration" value="60"><span>时间充裕</span></label></div></div><button class="primary full" id="applyCheckin" type="button">帮我选一件</button></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
